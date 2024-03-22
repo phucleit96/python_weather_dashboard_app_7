@@ -6,7 +6,8 @@ import requests
 # API Key for OpenWeatherMap API
 
 # Alternative way to get API Key from environment variables
-API_KEY = os.getenv("OPEN_WEATHER_API_KEY")
+API_KEY = "b5b2f64dd6cc91df4fd94eef842ca6e6"
+
 
 # Function to get weather data
 def get_data(place, forecast_days=None):
