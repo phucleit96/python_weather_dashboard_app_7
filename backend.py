@@ -1,22 +1,27 @@
+# Importing necessary libraries
 import pandas as pd
 import os
 import requests
 
+# API Key for OpenWeatherMap API
 API_KEY = 'b5b2f64dd6cc91df4fd94eef842ca6e6'
+# Alternative way to get API Key from environment variables
 # API_KEY = os.getenv("OPEN_WEATHER_API_KEY")
 
-
-def get_data(place, forecast_days=None, kind=None):
+# Function to get weather data
+def get_data(place, forecast_days=None):
+    # Constructing the URL for the API request
     url = f"https://api.openweathermap.org/data/2.5/forecast?q={place}&appid={API_KEY}"
+    # Making a GET request to the API
     response = requests.get(url)
+    # Converting the response to JSON
     data = response.json()
+    # Filtering the data for the required number of forecast days
     filtered_data = data['list'][:8*forecast_days]
-    if kind == "Temperature":
-        filtered_data = [dict['main']['temp'] for dict in filtered_data]
-    else:
-        filtered_data = [dict['weather'][0]['main'] for dict in filtered_data]
+    # Returning the filtered data
     return filtered_data
 
-
+# Main execution
 if __name__ == "__main__":
-    print(get_data(place="Tokyo", forecast_days=3, kind="Temperature"))
+    # Printing the weather data for Tokyo for the next 3 days
+    print(get_data(place="Tokyo", forecast_days=3))
